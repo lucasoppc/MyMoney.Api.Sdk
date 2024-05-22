@@ -26,8 +26,8 @@ jobs:
         run: dotnet build src/MyMoney.Api.Sdk --configuration Release
 
       - name: dotnet pack
-        run: dotnet pack src/MyMoney.Api.Sdk -c Release -o ./nupkg
+        run: dotnet pack src/MyMoney.Api.Sdk -c Release -o $(Build.ArtifactStagingDirectory)
 
       - name: Publish to NuGet
-        run: dotnet nuget push D:/a/MyMoney.Api.Sdk/MyMoney.Api.Sdk/nupkg/*.nupkg --source https://nuget.pkg.github.com/lucasoppc/index.json --api-key ${{ secrets.MY_GITHUB_TOKEN }}
+        run: dotnet nuget push $(Build.ArtifactStagingDirectory)/*.nupkg --source https://nuget.pkg.github.com/lucasoppc/index.json --api-key ${{ secrets.MY_GITHUB_TOKEN }}
           
