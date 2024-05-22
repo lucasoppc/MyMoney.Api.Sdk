@@ -13,6 +13,9 @@ jobs:
   build:
     runs-on: windows-latest
 
+    env:
+      NUGET_PACKAGES_DIRECTORY: ${{ github.workspace }}/nupkg
+        
     steps:
       - uses: actions/checkout@v4
 
@@ -26,8 +29,8 @@ jobs:
         run: dotnet build src/MyMoney.Api.Sdk --configuration Release
 
       - name: dotnet pack
-        run: dotnet pack src/MyMoney.Api.Sdk -c Release -o $(Build.ArtifactStagingDirectory)
+        run: dotnet pack src/MyMoney.Api.Sdk -c Release -o ${{ github.workspace }}/nupkg
 
       - name: Publish to NuGet
-        run: dotnet nuget push $(Build.ArtifactStagingDirectory)/*.nupkg --source https://nuget.pkg.github.com/lucasoppc/index.json --api-key ${{ secrets.MY_GITHUB_TOKEN }}
+        run: dotnet nuget push ${{ github.workspace }}/*.nupkg --source https://nuget.pkg.github.com/lucasoppc/index.json --api-key ${{ secrets.MY_GITHUB_TOKEN }}
           
