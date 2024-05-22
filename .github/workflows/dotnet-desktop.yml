@@ -29,5 +29,5 @@ jobs:
         run: dotnet pack src/MyMoney.Api.Sdk -c Release -o ./nupkg
 
       - name: Publish to NuGet
-        run: dotnet nuget push ./nupkg/*.nupkg --source https://nuget.pkg.github.com/lucasoppc/index.json --api-key ${{ secrets.MY_GITHUB_TOKEN }}
+        run: dotnet nuget push src/MyMoney.Api.Sdk/nupkg/*.nupkg --source https://nuget.pkg.github.com/lucasoppc/index.json --api-key ${{ secrets.MY_GITHUB_TOKEN }}
           
