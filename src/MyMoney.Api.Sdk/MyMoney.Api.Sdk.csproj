@@ -4,6 +4,13 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <IsPackable>true</IsPackable>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Version>1.0.0</Version>
+        <Authors>Lucas Hernandez</Authors>
+        <Company>lucasoppc</Company>
+        <Description>SDK to use MyMoney.Api</Description>
+        <RepositoryUrl>https://github.com/lucasoppc/MyMoney.Api.Sdk</RepositoryUrl>
     </PropertyGroup>
 
     <ItemGroup>
