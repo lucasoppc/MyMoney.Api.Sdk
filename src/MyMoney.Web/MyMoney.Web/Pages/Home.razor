@@ -1,4 +1,7 @@
-﻿@using MyMoney.Web.Services
+﻿@using MyMoney.Api.Sdk.Api
+@using MyMoney.Api.Sdk.Api.Accounts.Responses
+@using MyMoney.Web.Services
+@inject MyMoneyApiClient apiClient;
 
 @page "/home"
 @page "/"
@@ -9,15 +12,39 @@
 <link href="css/bootstrap.min.css" rel="stylesheet" />
 <div>
     <p>Home Page</p>
+    
+    <table>
+        @foreach (var account in accounts)
+        {
+            <tr>
+                <td>@account.Name</td>
+                <td>@account.Amount</td>
+            </tr>
+        }
+    </table>
 </div>
 
 @code {
+    private string token;
+    private List<AccountResponse> accounts = new();
+    
     protected override async Task OnInitializedAsync()
     {
-        var token = await cache.GetValueAsync<string>("UserToken");
+        token = await cache.GetValueAsync<string>("UserToken");
         if (string.IsNullOrWhiteSpace(token))
         {
             navigation.NavigateTo("/login");
+        }
+        await LoadAccounts();
+        
+    }
+
+    private async Task LoadAccounts()
+    {
+        var response = await apiClient.Accounts.GetUserAccounts(token);
+        if (response.StatusCode == System.Net.HttpStatusCode.OK)
+        {
+            accounts = response.Data.Accounts;
         }
     }
 }
