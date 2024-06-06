@@ -1,0 +1,23 @@
+﻿@using MyMoney.Web.Services
+
+@page "/home"
+@page "/"
+
+@inject CacheService cache;
+@inject NavigationManager navigation;
+
+<link href="css/bootstrap.min.css" rel="stylesheet" />
+<div>
+    <p>Home Page</p>
+</div>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        var token = await cache.GetValueAsync<string>("UserToken");
+        if (string.IsNullOrWhiteSpace(token))
+        {
+            navigation.NavigateTo("/login");
+        }
+    }
+}
