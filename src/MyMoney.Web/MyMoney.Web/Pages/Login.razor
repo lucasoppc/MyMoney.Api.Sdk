@@ -1,6 +1,7 @@
 @using System.ComponentModel.DataAnnotations
 @using MyMoney.Api.Sdk.Api
 @using MyMoney.Web.Services
+@using MyMoney.Web.Components.UI
 @inject MyMoneyApiClient ApiClient
 @inject CacheService CacheService
 @inject NavigationManager navigation
@@ -36,7 +37,7 @@
                 @if (isLoading)
                 {
                     <div class="d-flex justify-content-center align-items-center">
-                        <Spinner Color="SpinnerColor.Primary" />
+                        <Spinner Width="50"/>
                     </div>
                 }
                 else
