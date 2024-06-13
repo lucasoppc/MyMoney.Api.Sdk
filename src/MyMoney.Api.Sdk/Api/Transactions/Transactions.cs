@@ -13,7 +13,7 @@ public class Transactions(IHttpClientFactory factory)
 
     public async Task<ApiResponse<TransactionResponseList>> GetAccountTransactions(string userToken, string accountId)
     {
-        var request = new HttpRequestMessage(HttpMethod.Get, "api/v1.0/transactions");
+        var request = new HttpRequestMessage(HttpMethod.Get, $"api/v1.0/transactions?AccountId={accountId}");
         request.Headers.Add("Authorization", $"Bearer {userToken}");
         var response = await _httpClient.SendAsync(request);
         return await response.ToApiResult<TransactionResponseList>();
