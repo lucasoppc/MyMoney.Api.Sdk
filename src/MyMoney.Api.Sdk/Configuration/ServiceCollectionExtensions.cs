@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MyMoney.Api.Sdk.Api;
 using MyMoney.Api.Sdk.Api.Accounts;
 using MyMoney.Api.Sdk.Api.Common;
+using MyMoney.Api.Sdk.Api.Transactions;
 using MyMoney.Api.Sdk.Api.Users;
 
 namespace MyMoney.Api.Sdk.Configuration;
@@ -19,6 +20,7 @@ public static class ServiceCollectionExtensions
         });
         services.AddSingleton<Accounts>();
         services.AddSingleton<Users>();
+        services.AddSingleton<Transactions>();
         services.AddSingleton<MyMoneyApiClient>();
 
         return services;
