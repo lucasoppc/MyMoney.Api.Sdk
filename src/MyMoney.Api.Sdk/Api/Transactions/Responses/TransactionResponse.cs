@@ -8,5 +8,5 @@ public class TransactionResponse
     public string Description { get; set; }
     public string Currency { get; set; }
     public decimal Amount { get; set; }
-    public string Date { get; set; }
+    public DateTime Date { get; set; }
 }
