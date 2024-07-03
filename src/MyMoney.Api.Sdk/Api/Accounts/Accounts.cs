@@ -29,4 +29,23 @@ public class Accounts(IHttpClientFactory factory)
         var response = await _httpClient.SendAsync(request);
         return await response.ToApiResult<AccountResponse>();
     }
+    
+    public async Task<ApiResponse<AccountResponse>> UpdateAccount(string userToken, UpdateAccountRequest updateAccountRequest)
+    {
+        var request = new HttpRequestMessage(HttpMethod.Put, "api/v1.0/accounts/update")
+        {
+            Content = new StringContent(JsonSerializer.Serialize(updateAccountRequest), Encoding.UTF8, "application/json")
+        };
+        request.Headers.Add("Authorization", $"Bearer {userToken}");
+        var response = await _httpClient.SendAsync(request);
+        return await response.ToApiResult<AccountResponse>();
+    }
+    
+    public async Task<ApiResponse<AccountResponse>> DeleteAccount(string userToken, string accountId)
+    {
+        var request = new HttpRequestMessage(HttpMethod.Delete, $"api/v1.0/accounts/{accountId}");
+        request.Headers.Add("Authorization", $"Bearer {userToken}");
+        var response = await _httpClient.SendAsync(request);
+        return await response.ToApiResult<AccountResponse>();
+    }
 }

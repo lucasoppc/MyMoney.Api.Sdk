@@ -29,4 +29,15 @@ public class Transactions(IHttpClientFactory factory)
         var response = await _httpClient.SendAsync(request);
         return await response.ToApiResult<TransactionResponse>();
     }
+    
+    public async Task<ApiResponse<TransactionResponse>>? TransferToAccount(string userToken, TransferToAccountRequest transferToAccountRequest)
+    {
+        var request = new HttpRequestMessage(HttpMethod.Post, "api/v1.0/transactions/transfer")
+        {
+            Content = new StringContent(JsonSerializer.Serialize(transferToAccountRequest), Encoding.UTF8, "application/json")
+        };
+        request.Headers.Add("Authorization", $"Bearer {userToken}");
+        var response = await _httpClient.SendAsync(request);
+        return await response.ToApiResult<TransactionResponse>();
+    }
 }

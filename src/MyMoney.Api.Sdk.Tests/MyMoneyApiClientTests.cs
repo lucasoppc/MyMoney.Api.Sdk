@@ -146,7 +146,7 @@ public class MyMoneyApiClientTests
         const string azure = "https://oppc-my-money-api.azurewebsites.net";
         var options = new MyMoneyApiSdkOptions()
         {
-            BaseUrl = local,
+            BaseUrl = azure,
             TimeoutInSeconds = 30
         };
         _serviceCollection.AddMyMoneyApiSdk(options);
