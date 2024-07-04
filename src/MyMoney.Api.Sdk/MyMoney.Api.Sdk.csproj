@@ -6,7 +6,7 @@
         <Nullable>enable</Nullable>
         <IsPackable>true</IsPackable>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <Version>1.0.15</Version>
+        <Version>1.0.16</Version>
         <Authors>Lucas Hernandez</Authors>
         <Company>lucasoppc</Company>
         <Description>SDK to use MyMoney.Api</Description>

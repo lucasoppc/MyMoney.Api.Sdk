@@ -8,6 +8,7 @@ public class AccountResponse
     public string Name { get; set; }
     public string UserId { get; set; }
     public string Currency { get; set; }
+    public string BankAccount { get; set; }
     public bool IsDeleted { get; set; }
     public decimal Amount { get; set; }
 }
