@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 using MyMoney.Api.Sdk.Api.Common;
 
@@ -29,7 +30,13 @@ public static class HttpResponseMessageExtensions
                 var existErrorMessage = jsonDocument.TryGetProperty("error", out var error);
                 if (existErrorMessage)
                 {
-                    apiResponse.ErrorMessage = error.ToString();
+                    apiResponse.ErrorMessage = error.Deserialize<string>();
+                }
+
+                var errorsJson = jsonDocument.TryGetProperty("errors", out var errorsJsonElement);
+                if (errorsJson)
+                {
+                    apiResponse.ErrorList = errorsJsonElement.Deserialize<List<string>>();
                 }
             }
             else
