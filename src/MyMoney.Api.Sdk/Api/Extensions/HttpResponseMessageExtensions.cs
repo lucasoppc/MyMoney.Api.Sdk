@@ -40,13 +40,12 @@ public static class HttpResponseMessageExtensions
                     apiResponse.ErrorList = new List<string>();
                     var errorsDictionary = errors.Deserialize<Dictionary<string, List<string>>>();
                     if (errorsDictionary != null)
-                        foreach (var errorProperty in errorsDictionary)
+                    {
+                        foreach (var message in errorsDictionary.SelectMany(errorProperty => errorProperty.Value))
                         {
-                            foreach (var message in errorProperty.Value)
-                            {
-                                apiResponse.ErrorList.Add($"{errorProperty.Key}: {message}");
-                            }
+                            apiResponse.ErrorList.Add(message);
                         }
+                    }
                 }
             }
             else
