@@ -33,10 +33,20 @@ public static class HttpResponseMessageExtensions
                     apiResponse.ErrorMessage = error.Deserialize<string>();
                 }
 
-                var errorsJson = jsonDocument.TryGetProperty("errors", out var errorsJsonElement);
-                if (errorsJson)
+                // validation errors
+                var existErrors = jsonDocument.TryGetProperty("errors", out var errors);
+                if (existErrors)
                 {
-                    apiResponse.ErrorList = errorsJsonElement.Deserialize<List<string>>();
+                    apiResponse.ErrorList = new List<string>();
+                    var errorsDictionary = errors.Deserialize<Dictionary<string, List<string>>>();
+                    if (errorsDictionary != null)
+                        foreach (var errorProperty in errorsDictionary)
+                        {
+                            foreach (var message in errorProperty.Value)
+                            {
+                                apiResponse.ErrorList.Add($"{errorProperty.Key}: {message}");
+                            }
+                        }
                 }
             }
             else
